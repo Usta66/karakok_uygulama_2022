@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       navigatorKey: NavigationServices.instance!.navigatorKey,
-      onGenerateRoute: (settings) =>
-          NavigatorRouteServices.onRouteGenarete(settings),
+      onGenerateRoute: (settings) => NavigatorRouteServices.onRouteGenarete(settings),
       initialRoute: EnumRoute.SPLASH.name,
     );
   }

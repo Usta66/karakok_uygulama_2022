@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:square_app/view/home/home_view.dart';
 import 'package:square_app/view/home/home_view_model.dart';
+import 'package:square_app/view/kolay/kolay_view.dart';
+import 'package:square_app/view/kolay/kolay_view_model.dart';
 import 'package:square_app/view/onboard/onboard_view.dart';
 import 'package:square_app/view/onboard/onboard_view_model.dart';
+import 'package:square_app/view/orta_zor/orta_zor_view.dart';
+import 'package:square_app/view/orta_zor/orta_zor_view_model.dart';
 import 'package:square_app/view/splash/splash_view.dart';
 import 'package:square_app/view/splash/splash_view_model.dart';
 
@@ -18,8 +22,17 @@ class NavigatorRouteServices {
       case "ONBOARD":
         return _navigateToDeafult(OnboardView(viewModel: OnboardViewModel()));
 
-         case "HOME":
+      case "HOME":
         return _navigateToDeafult(HomeView(viewModel: HomeViewModel()));
+
+      case "ZOR":
+        return _navigateToDeafult(OrtaZorView(viewModel: OrtaZorViewModel.zor()));
+
+      case "ORTA":
+        return _navigateToDeafult(OrtaZorView(viewModel: OrtaZorViewModel.orta()));
+
+      case "KOLAY":
+        return _navigateToDeafult(KolayView(viewModel: KolayViewModel()));
     }
   }
 
@@ -27,8 +40,7 @@ class NavigatorRouteServices {
     return MaterialPageRoute(builder: (context) => page);
   }
 
-  static _navigateToScaleDeafult<T extends ChangeNotifier>(
-      T viewModel, Widget page) {
+  static _navigateToScaleDeafult<T extends ChangeNotifier>(T viewModel, Widget page) {
     return ScaleRoute<T>(page, viewModel);
   }
 }

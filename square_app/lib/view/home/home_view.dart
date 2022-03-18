@@ -23,7 +23,7 @@ class HomeView extends StatelessWidget {
             children: [
               UserAccountsDrawerHeader(
                 decoration: BoxDecoration(color: Colors.white),
-                accountName: Text(
+                accountName: const Text(
                   "Karekök Uygulaması",
                   style: TextStyle(
                     color: Colors.amber,
@@ -31,19 +31,15 @@ class HomeView extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                accountEmail: Text(
+                accountEmail: const Text(
                   "Esma ASLAN KARABACAK\nesmaaslan06@gmail.com",
-                  style: TextStyle(
-                      color: Colors.deepPurpleAccent,
-                      fontSize: 15,
-                      fontStyle: FontStyle.italic),
+                  style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 15, fontStyle: FontStyle.italic),
                 ),
-                currentAccountPicture:
-                    Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
+                currentAccountPicture: Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
               ),
               Padding(
                 padding: context.paddingLow,
-                child: Text(
+                child: const Text(
                     "Bu Uygulama M.8.1.3.6. Kazanımı için hazırlanmıştır.\n\nKareköklü ifade ile çarpıldığında sonucu doğal sayı olan çarpanları belirler."),
               )
             ],
@@ -67,12 +63,11 @@ class HomeView extends StatelessWidget {
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-                width: context.width,
-                height: context.height * 0.4,
-                child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
+            SizedBox(width: context.width, height: context.height * 0.4, child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
             MyButton(
-                onPressed: () {},
+                onPressed: () {
+                  viewModel.navigateKolay();
+                },
                 title: "KOLAY",
                 height: context.height * 0.07,
                 width: context.width * 0.6,
@@ -80,7 +75,9 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: context.paddingLow,
               child: MyButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    viewModel.navigateOrta();
+                  },
                   title: "ORTA",
                   height: context.height * 0.07,
                   width: context.width * 0.6,
@@ -89,7 +86,9 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: context.paddingLow,
               child: MyButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    viewModel.navigateZor();
+                  },
                   title: "ZOR",
                   height: context.height * 0.07,
                   width: context.width * 0.6,
