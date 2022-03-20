@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:square_app/base/view/base_view.dart';
 import 'package:square_app/device/constants/app_constants.dart';
 import 'package:square_app/view/splash/splash_view_model.dart';

@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:square_app/base/view/base_view.dart';
+import 'package:square_app/components/my_container_circular.dart';
 import 'package:square_app/view/kolay/kolay_view_model.dart';
-
+import "package:kartal/kartal.dart";
 import '../../init/ortak_fonksiyonlar.dart';
 
 class KolayView extends StatelessWidget {
@@ -14,7 +13,7 @@ class KolayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    viewModel.geriSayimSayaci(context);
+    
     return BaseView(
         viewModel: viewModel,
         child: Scaffold(
@@ -25,77 +24,38 @@ class KolayView extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: context.paddingNormal,
               child: Wrap(
-                runSpacing: 20,
+                runSpacing: context.normalValue,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Spacer(),
                       Expanded(
-                          child: Container(
-                              decoration: BoxDecoration(color: Color(0xFFFFD900), borderRadius: BorderRadiusDirectional.circular(100)),
-                              padding: const EdgeInsets.all(8),
-                              child: Center(
-                                  child: TextField(
-                                readOnly: true,
-                                style: Theme.of(context).textTheme.headline5,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(border: InputBorder.none),
-                                controller: viewModel.sureController,
-                              ))
-
-                              //color: viewModel.modelList[i].renk
-                              )
-
-                          // TextField(
-                          //   style: Theme.of(context).textTheme.headline5,
-                          //   textAlign: TextAlign.center,
-                          //   decoration: InputDecoration(border: InputBorder.none),
-                          //   controller: sureController,
-                          // ),
-                          ),
-                      Spacer(),
+                          child: MyContainerCircular(
+                        color: viewModel.zamanVeSkor,
+                        controller: viewModel.sureController,
+                      )),
+                      // const Spacer(),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(color: Color(0xFFFFD900), borderRadius: BorderRadiusDirectional.circular(100)),
-                          padding: const EdgeInsets.all(8),
-                          child: TextField(
-                            readOnly: true,
-                            style: Theme.of(context).textTheme.headline5,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(border: InputBorder.none),
-                            controller: viewModel.puanController,
-                          ),
-                        ),
+                          child: MyContainerCircular(
+                              color: viewModel.zamanVeSkor,
+                              controller: viewModel.puanController)
 
-                        //color: viewModel.modelList[i].renk
-                      ),
-                      Spacer(),
+                          //color: viewModel.modelList[i].renk
+                          ),
                     ],
                   ),
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      height: MediaQuery.of(context).size.width * 0.25,
-                      decoration: BoxDecoration(color: viewModel.normal, borderRadius: BorderRadiusDirectional.circular(100)),
-                      padding: const EdgeInsets.all(8),
-                      child: Center(
-                        child: TextField(
-                            readOnly: true,
-                            style: Theme.of(context).textTheme.headline5,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(border: InputBorder.none),
-                            controller: viewModel.kareKokController),
-                      ),
-                    ),
+                  MyContainerCircular(
+                    color: viewModel.normal,
+                    controller: viewModel.kareKokController,
                   ),
                   GridView.count(
                       shrinkWrap: true,
                       controller: ScrollController(keepScrollOffset: false),
                       scrollDirection: Axis.vertical,
                       // primary: false,
-                      padding: const EdgeInsets.all(20),
+                      padding: context.paddingNormal,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       crossAxisCount: 3,
@@ -105,21 +65,24 @@ class KolayView extends StatelessWidget {
                             if (viewModel.birinciSecilen == null) {
                               viewModel.birinciSecilen = i;
 
-                              viewModel.renkDegistir(viewModel.seciliRenk, viewModel.birinciSecilen!);
+                              viewModel.renkDegistir(
+                                viewModel.seciliRenk,
+                              );
                             }
 
                             {
                               await Future.delayed(const Duration(seconds: 1));
 
-                              viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
+                              viewModel.renkDegistir(viewModel.normal);
 
-                              // viewModel.modelList[viewModel.ikinciSecilen].renk =
-                              //     normal;
+                              if (dogalSayimi(
+                                  viewModel
+                                      .modelList[viewModel.birinciSecilen!].b,
+                                  viewModel.b)) {
+                                viewModel.renkDegistir(viewModel.dogru);
 
-                              if (dogalSayimi(viewModel.modelList[viewModel.birinciSecilen!].b, viewModel.b)) {
-                                viewModel.renkDegistir(viewModel.dogru, viewModel.birinciSecilen!);
-
-                                await Future.delayed(const Duration(seconds: 1));
+                                await Future.delayed(
+                                    const Duration(seconds: 1));
 
                                 viewModel.puanArtir();
 
@@ -127,32 +90,31 @@ class KolayView extends StatelessWidget {
 
                                 viewModel.karekokDegistir();
 
-                                viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal);
 
                                 viewModel.birinciSecilen = null;
                               } else {
-                                viewModel.renkDegistir(viewModel.yanlis, viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.yanlis);
 
-                                await Future.delayed(const Duration(seconds: 1));
+                                await Future.delayed(
+                                    const Duration(seconds: 1));
 
-                                viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal);
                               }
 
                               viewModel.birinciSecilen = null;
                             }
                           }, child: Consumer<KolayViewModel>(
                             builder: (context, value, child) {
-                              return Container(
-                                  decoration: BoxDecoration(color: viewModel.modelList[i].renk, borderRadius: BorderRadiusDirectional.circular(100)),
-                                  padding: const EdgeInsets.all(8),
-                                  child: Center(
-                                      child: Text(
-                                    "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.06),
-                                  ))
-
-                                  //color: viewModel.modelList[i].renk
-                                  );
+                              return MyContainerCircular(
+                                color: viewModel.modelList[i].renk,
+                                child: Center(
+                                    child: Text(
+                                  "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
+                                  style:
+                                      TextStyle(fontSize: context.width * 0.06),
+                                )),
+                              );
                             },
                           ))
                       ]),
@@ -161,7 +123,7 @@ class KolayView extends StatelessWidget {
                           onPressed: () {
                             viewModel.navigateHome();
                           },
-                          child: Text("MENÜ")))
+                          child: const Text("MENÜ")))
                 ],
               ),
             ),

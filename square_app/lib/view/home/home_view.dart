@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/device/constants/app_constants.dart';
@@ -22,7 +21,7 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
                 accountName: const Text(
                   "Karekök Uygulaması",
                   style: TextStyle(
@@ -33,9 +32,13 @@ class HomeView extends StatelessWidget {
                 ),
                 accountEmail: const Text(
                   "Esma ASLAN KARABACAK\nesmaaslan06@gmail.com",
-                  style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 15, fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                      color: Colors.deepPurpleAccent,
+                      fontSize: 15,
+                      fontStyle: FontStyle.italic),
                 ),
-                currentAccountPicture: Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
+                currentAccountPicture:
+                    Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
               ),
               Padding(
                 padding: context.paddingLow,
@@ -60,41 +63,46 @@ class HomeView extends StatelessWidget {
             )
           ],
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(width: context.width, height: context.height * 0.4, child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
-            MyButton(
-                onPressed: () {
-                  viewModel.navigateKolay();
-                },
-                title: "KOLAY",
-                height: context.height * 0.07,
-                width: context.width * 0.6,
-                raduis: 30),
-            Padding(
-              padding: context.paddingLow,
-              child: MyButton(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                  width: context.width,
+                  height: context.height * 0.4,
+                  child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
+              MyButton(
                   onPressed: () {
-                    viewModel.navigateOrta();
+                    viewModel.navigateKolay();
                   },
-                  title: "ORTA",
+                  title: "KOLAY",
                   height: context.height * 0.07,
                   width: context.width * 0.6,
                   raduis: 30),
-            ),
-            Padding(
-              padding: context.paddingLow,
-              child: MyButton(
-                  onPressed: () {
-                    viewModel.navigateZor();
-                  },
-                  title: "ZOR",
-                  height: context.height * 0.07,
-                  width: context.width * 0.6,
-                  raduis: 30),
-            )
-          ],
+              Padding(
+                padding: context.paddingLow,
+                child: MyButton(
+                    onPressed: () {
+                      viewModel.navigateOrta();
+                    },
+                    title: "ORTA",
+                    height: context.height * 0.07,
+                    width: context.width * 0.6,
+                    raduis: 30),
+              ),
+              Padding(
+                padding: context.paddingLow,
+                child: MyButton(
+                    onPressed: () {
+                      viewModel.navigateZor();
+                    },
+                    title: "ZOR",
+                    height: context.height * 0.07,
+                    width: context.width * 0.6,
+                    raduis: 30),
+              )
+            ],
+          ),
         ),
       ),
     );

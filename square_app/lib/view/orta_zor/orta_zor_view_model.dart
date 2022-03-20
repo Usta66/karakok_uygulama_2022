@@ -11,8 +11,11 @@ class OrtaZorViewModel extends ChangeNotifier {
   Color normal = const Color(0xFFB2DFDB);
   Color dogru = const Color(0xFF4caf50);
   Color yanlis = const Color(0xFFb71c1c);
-  int oyunSuresi = 60;
-  int puan = 0;
+  Color zamanVeSkor = const Color(0xFFFFD900);
+  late int oyunSuresi;
+  final int oyunSuresiSabit = 60;
+  final int oyunEkSure = 10;
+  late int puan;
 
   late TextEditingController sureController;
   late TextEditingController puanController;
@@ -26,9 +29,41 @@ class OrtaZorViewModel extends ChangeNotifier {
 
   List<KaraKokModel> modelList = [];
   List<int> bTemp = [];
-  List<int> bList = [2, 3, 5, 6, 7, 8, 10, 12, 18, 20, 24, 28, 32, 40, 45, 48, 50, 54, 72, 75, 80, 90, 98, 108, 125, 180, 300, 500, 600];
+  List<int> bList = [
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    10,
+    12,
+    18,
+    20,
+    24,
+    28,
+    32,
+    40,
+    45,
+    48,
+    50,
+    54,
+    72,
+    75,
+    80,
+    90,
+    98,
+    108,
+    125,
+    180,
+    300,
+    500,
+    600
+  ];
 
   void init() {
+    oyunSuresi = oyunSuresiSabit;
+    puan = 0;
     sureController = TextEditingController(text: oyunSuresi.toString());
     puanController = TextEditingController(text: puan.toString());
     geriSayimSayaci();
@@ -88,10 +123,10 @@ class OrtaZorViewModel extends ChangeNotifier {
   }
 
   oyunSuresiArtir() {
-    oyunSuresi = oyunSuresi + 10;
+    oyunSuresi = oyunSuresi + oyunEkSure;
 
-    if (oyunSuresi > 60) {
-      oyunSuresi = 60;
+    if (oyunSuresi > oyunSuresiSabit) {
+      oyunSuresi = oyunSuresiSabit;
     }
     sureController.text = oyunSuresi.toString();
   }
@@ -102,7 +137,6 @@ class OrtaZorViewModel extends ChangeNotifier {
       oyunSuresi--;
       sureController.text = oyunSuresi.toString();
 
-      //notifyListeners();
     }
     if (scaffoldKey.currentContext != null) {
       showDialog(
@@ -112,7 +146,7 @@ class OrtaZorViewModel extends ChangeNotifier {
           return AlertDialog(
             title: Center(child: Text("Tebrikler $puan Puan Aldınız")),
             content: TextButton(
-              child: Text("Yeni Oyun"),
+              child: const Text("Yeni Oyun"),
               onPressed: () {
                 if (isZor) {
                   NavigationServices.instance!.navigateToReset(EnumRoute.ZOR);
@@ -129,11 +163,19 @@ class OrtaZorViewModel extends ChangeNotifier {
 
   void yeniSayiEkle() {
     modelList.removeAt(birinciSecilen!);
-    modelList.insert(birinciSecilen!, KaraKokModel(a: Random().nextInt(5) + 1, b: bList[Random().nextInt(bList.length)]));
+    modelList.insert(
+        birinciSecilen!,
+        KaraKokModel(
+            a: Random().nextInt(5) + 1,
+            b: bList[Random().nextInt(bList.length)]));
 
     modelList.removeAt(ikinciSecilen!);
 
-    modelList.insert(ikinciSecilen!, KaraKokModel(a: Random().nextInt(5) + 1, b: bList[Random().nextInt(bList.length)]));
+    modelList.insert(
+        ikinciSecilen!,
+        KaraKokModel(
+            a: Random().nextInt(5) + 1,
+            b: bList[Random().nextInt(bList.length)]));
   }
 
   navigateHome() {

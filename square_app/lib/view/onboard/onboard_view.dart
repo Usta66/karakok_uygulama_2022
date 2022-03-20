@@ -23,7 +23,7 @@ class OnboardView extends StatelessWidget {
             padding: const EdgeInsetsDirectional.all(0.8),
             child: Column(
               children: [
-                Spacer(
+                const Spacer(
                   flex: 1,
                 ),
                 Expanded(
@@ -67,7 +67,7 @@ class OnboardView extends StatelessWidget {
                         const Spacer(),
                         FloatingActionButton(
                             backgroundColor: Colors.purpleAccent,
-                            child: Icon(Icons.keyboard_arrow_right_sharp),
+                            child: const Icon(Icons.keyboard_arrow_right_sharp),
                             onPressed: () {
                                NavigationServices.instance!.navigateToReset(EnumRoute.HOME);
                             })

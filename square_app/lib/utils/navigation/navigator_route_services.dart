@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:square_app/view/home/home_view.dart';
 import 'package:square_app/view/home/home_view_model.dart';
 import 'package:square_app/view/kolay/kolay_view.dart';
@@ -34,6 +33,7 @@ class NavigatorRouteServices {
       case "KOLAY":
         return _navigateToDeafult(KolayView(viewModel: KolayViewModel()));
     }
+    return null;
   }
 
   static MaterialPageRoute _navigateToDeafult(Widget page) {

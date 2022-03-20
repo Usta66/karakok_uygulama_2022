@@ -2,9 +2,7 @@ class LottieConstants {
   static LottieConstants? _instance;
 
   static LottieConstants? get instance {
-    if (_instance == null) {
-      _instance = LottieConstants._init();
-    }
+    _instance ??= LottieConstants._init();
     return _instance;
   }
 

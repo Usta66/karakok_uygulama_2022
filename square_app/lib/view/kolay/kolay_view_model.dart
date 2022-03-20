@@ -7,12 +7,15 @@ import '../../utils/navigation/enum/enum_navigate.dart';
 import '../../utils/navigation/navigation_services.dart';
 
 class KolayViewModel extends ChangeNotifier {
-  Color seciliRenk = Color(0xFFC5CAE9);
-  Color normal = Color(0xFFB2DFDB);
-  Color dogru = Color(0xFF4caf50);
-  Color yanlis = Colors.red;
+  Color seciliRenk = const Color(0xFFC5CAE9);
+  Color normal = const Color(0xFFB2DFDB);
+  Color dogru = const Color(0xFF4caf50);
+  Color yanlis = const Color(0xFFb71c1c);
+  Color zamanVeSkor = const Color(0xFFFFD900);
 
   late int oyunSuresi;
+  final int oyunSuresiSabit = 60;
+  final int oyunEkSure = 10;
   late int puan;
   late int a;
   late int b;
@@ -24,16 +27,47 @@ class KolayViewModel extends ChangeNotifier {
 
   late KaraKokModel model;
 
+  // ignore: avoid_init_to_null
   late int? birinciSecilen = null;
   // int ikinciSecilen;
   List<KaraKokModel> modelList = [];
 
   List<int> bSabitList = [2, 3, 5, 6, 7, 10];
 
-  List<int> bList = [2, 3, 5, 6, 7, 8, 10, 12, 18, 20, 24, 28, 32, 40, 45, 48, 50, 54, 72, 75, 80, 90, 98, 108, 125, 180, 300, 500, 600];
+  List<int> bList = [
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    10,
+    12,
+    18,
+    20,
+    24,
+    28,
+    32,
+    40,
+    45,
+    48,
+    50,
+    54,
+    72,
+    75,
+    80,
+    90,
+    98,
+    108,
+    125,
+    180,
+    300,
+    500,
+    600
+  ];
 
   KolayViewModel() {
-    oyunSuresi = 60;
+    oyunSuresi = oyunSuresiSabit;
     puan = 0;
     sureController = TextEditingController(text: oyunSuresi.toString());
     puanController = TextEditingController(text: puan.toString());
@@ -46,12 +80,13 @@ class KolayViewModel extends ChangeNotifier {
 
       modelList.add(model);
     }
+    geriSayimSayaci();
 
     kareKokController = TextEditingController(text: "$a√$b");
   }
 
-  renkDegistir(Color color, int i) {
-    modelList[i].renk = color;
+  renkDegistir(Color color) {
+    modelList[birinciSecilen!].renk = color;
     notifyListeners();
   }
 
@@ -61,10 +96,10 @@ class KolayViewModel extends ChangeNotifier {
   }
 
   oyunSuresiArtir() {
-    oyunSuresi = oyunSuresi + 10;
+    oyunSuresi = oyunSuresi + oyunEkSure;
 
-    if (oyunSuresi > 60) {
-      oyunSuresi = 60;
+    if (oyunSuresi > oyunSuresiSabit) {
+      oyunSuresi = oyunSuresiSabit;
     }
     sureController.text = oyunSuresi.toString();
   }
@@ -76,24 +111,22 @@ class KolayViewModel extends ChangeNotifier {
     kareKokController.text = "$a√$b";
   }
 
-  Future<void> geriSayimSayaci(BuildContext context) async {
+  Future<void> geriSayimSayaci() async {
     for (int i = 0; oyunSuresi > 0; i++) {
       await Future.delayed(const Duration(seconds: 1));
       oyunSuresi--;
       sureController.text = oyunSuresi.toString();
-
-      //notifyListeners();
     }
 
     if (scaffoldKey.currentContext != null) {
       showDialog(
         barrierDismissible: false,
-        context: context,
+        context: scaffoldKey.currentContext!,
         builder: (context) {
           return AlertDialog(
             title: Center(child: Text("Tebrikler $puan Puan Aldınız")),
             content: TextButton(
-              child: Text("Yeni Oyun"),
+              child: const Text("Yeni Oyun"),
               onPressed: () {
                 NavigationServices.instance!.navigateToReset(EnumRoute.KOLAY);
               },
