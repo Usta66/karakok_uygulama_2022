@@ -1,0 +1,11 @@
+{
+    "home": {
+        "uygulamaAdi": "Karekök Uygulaması",
+        "kolay": "KOLAY",
+        "orta": "ORTA",
+        "zor": "ZOR",
+        "ogretmenAdi": "Esma ASLAN KARABACAK\nesmaaslan06@gmail.com",
+        "hakkinda": "Bu Uygulama M.8.1.3.6 Kazanımı İçin Geliştirilmiştir.\n\n Kareköklü ifade ile çarpıldığında sonucu doğal sayı olan çarpanları belirler.",
+        "nasilOynanir": "Nasıl Oynanır"
+    }
+}

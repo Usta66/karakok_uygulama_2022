@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:square_app/components/locale_text.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/device/constants/app_constants.dart';
+import 'package:square_app/init/locale_keys.g.dart';
 import 'package:square_app/view/home/home_view_model.dart';
 import 'package:kartal/kartal.dart';
 import '../../base/view/base_view.dart';
@@ -22,28 +25,42 @@ class HomeView extends StatelessWidget {
             children: [
               UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(color: Colors.white),
-                accountName: const Text(
-                  "Karekök Uygulaması",
+                accountName: const LocaleText(
+                  text: LocaleKeys.home_uygulamaAdi,
                   style: TextStyle(
                     color: Colors.amber,
                     fontSize: 25,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                accountEmail: const Text(
-                  "Esma ASLAN KARABACAK\nesmaaslan06@gmail.com",
-                  style: TextStyle(
-                      color: Colors.deepPurpleAccent,
-                      fontSize: 15,
-                      fontStyle: FontStyle.italic),
+                accountEmail: const LocaleText(
+                  text: LocaleKeys.home_ogretmenAdi,
+                  style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 15, fontStyle: FontStyle.italic),
                 ),
-                currentAccountPicture:
-                    Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
+                currentAccountPicture: Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
               ),
               Padding(
                 padding: context.paddingLow,
-                child: const Text(
-                    "Bu Uygulama M.8.1.3.6. Kazanımı için hazırlanmıştır.\n\nKareköklü ifade ile çarpıldığında sonucu doğal sayı olan çarpanları belirler."),
+                child: const LocaleText(text: LocaleKeys.home_hakkinda),
+              ),
+              const Divider(),
+              TextButton(
+                  onPressed: () {
+                    viewModel.navigateOnboar();
+                  },
+                  child: Consumer<HomeViewModel>(
+                    // ignore: prefer_const_constructors
+                    builder: (context, value, child) => LocaleText(text: LocaleKeys.home_nasilOynanir),
+                  )),
+              Consumer<HomeViewModel>(
+                builder: (context, value, child) {
+                  return Switch(
+                      value: value.isLangEn,
+                      onChanged: (select) {
+                        value.isLangEn = select;
+                        viewModel.changeLang(context);
+                      });
+                },
               )
             ],
           ),
@@ -67,39 +84,33 @@ class HomeView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                  width: context.width,
-                  height: context.height * 0.4,
-                  child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
-              MyButton(
+              SizedBox(width: context.width, height: context.height * 0.4, child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
+              Padding(
+                padding: context.paddingLow,
+                child: MyButton(
                   onPressed: () {
                     viewModel.navigateKolay();
                   },
                   title: "KOLAY",
-                  height: context.height * 0.07,
-                  width: context.width * 0.6,
-                  raduis: 30),
-              Padding(
-                padding: context.paddingLow,
-                child: MyButton(
-                    onPressed: () {
-                      viewModel.navigateOrta();
-                    },
-                    title: "ORTA",
-                    height: context.height * 0.07,
-                    width: context.width * 0.6,
-                    raduis: 30),
+                ),
               ),
               Padding(
                 padding: context.paddingLow,
                 child: MyButton(
-                    onPressed: () {
-                      viewModel.navigateZor();
-                    },
-                    title: "ZOR",
-                    height: context.height * 0.07,
-                    width: context.width * 0.6,
-                    raduis: 30),
+                  onPressed: () {
+                    viewModel.navigateOrta();
+                  },
+                  title: "ORTA",
+                ),
+              ),
+              Padding(
+                padding: context.paddingLow,
+                child: MyButton(
+                  onPressed: () {
+                    viewModel.navigateZor();
+                  },
+                  title: "ZOR",
+                ),
               )
             ],
           ),

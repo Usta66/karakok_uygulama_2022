@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:square_app/view/orta_zor/orta_zor_view_model.dart';
 
 import '../../base/view/base_view.dart';
+import '../../components/my_button.dart';
 import '../../components/my_container_circular.dart';
 import '../../init/ortak_fonksiyonlar.dart';
 import 'package:kartal/kartal.dart';
@@ -38,10 +39,7 @@ class OrtaZorView extends StatelessWidget {
                         controller: viewModel.sureController,
                       )),
                       // const Spacer(),
-                      Expanded(
-                          child: MyContainerCircular(
-                              color: viewModel.zamanVeSkor,
-                              controller: viewModel.puanController)
+                      Expanded(child: MyContainerCircular(color: viewModel.zamanVeSkor, controller: viewModel.puanController)
 
                           //color: viewModel.modelList[i].renk
                           ),
@@ -62,53 +60,37 @@ class OrtaZorView extends StatelessWidget {
                             if (viewModel.birinciSecilen == null) {
                               viewModel.birinciSecilen = i;
 
-                              viewModel.renkDegistir(viewModel.seciliRenk,
-                                  viewModel.birinciSecilen!);
+                              viewModel.renkDegistir(viewModel.seciliRenk, viewModel.birinciSecilen!);
                             } else if (viewModel.ikinciSecilen == null) {
                               viewModel.ikinciSecilen = i;
 
-                              viewModel.renkDegistir(viewModel.seciliRenk,
-                                  viewModel.ikinciSecilen!);
+                              viewModel.renkDegistir(viewModel.seciliRenk, viewModel.ikinciSecilen!);
                             }
 
-                            if (viewModel.birinciSecilen ==
-                                viewModel.ikinciSecilen) {
-                              viewModel.renkDegistir(
-                                  viewModel.normal, viewModel.birinciSecilen!);
+                            if (viewModel.birinciSecilen == viewModel.ikinciSecilen) {
+                              viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
 
-                              viewModel.renkDegistir(
-                                  viewModel.normal, viewModel.ikinciSecilen!);
+                              viewModel.renkDegistir(viewModel.normal, viewModel.ikinciSecilen!);
 
                               viewModel.birinciSecilen = null;
                               viewModel.ikinciSecilen = null;
-                            } else if (viewModel.birinciSecilen != null &&
-                                viewModel.ikinciSecilen != null) {
+                            } else if (viewModel.birinciSecilen != null && viewModel.ikinciSecilen != null) {
                               await Future.delayed(const Duration(seconds: 1));
 
-                              viewModel.renkDegistir(
-                                  viewModel.normal, viewModel.birinciSecilen!);
+                              viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
 
-                              if (dogalSayimi(
-                                  viewModel
-                                      .modelList[viewModel.birinciSecilen!].b,
-                                  viewModel
-                                      .modelList[viewModel.ikinciSecilen!].b)) {
-                                viewModel.renkDegistir(
-                                    viewModel.dogru, viewModel.birinciSecilen!);
+                              if (dogalSayimi(viewModel.modelList[viewModel.birinciSecilen!].b, viewModel.modelList[viewModel.ikinciSecilen!].b)) {
+                                viewModel.renkDegistir(viewModel.dogru, viewModel.birinciSecilen!);
 
-                                viewModel.renkDegistir(
-                                    viewModel.dogru, viewModel.ikinciSecilen!);
+                                viewModel.renkDegistir(viewModel.dogru, viewModel.ikinciSecilen!);
 
-                                await Future.delayed(
-                                    const Duration(seconds: 1));
+                                await Future.delayed(const Duration(seconds: 1));
                                 viewModel.puanArtir();
                                 viewModel.oyunSuresiArtir();
 
-                                viewModel.renkDegistir(viewModel.normal,
-                                    viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
 
-                                viewModel.renkDegistir(
-                                    viewModel.normal, viewModel.ikinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal, viewModel.ikinciSecilen!);
 
                                 viewModel.yeniSayiEkle();
 
@@ -117,21 +99,16 @@ class OrtaZorView extends StatelessWidget {
                               } else {
                                 // viewModel.modelList[viewModel.birinciSecilen!]
                                 // .renk = viewModel.yanlis;
-                                viewModel.renkDegistir(viewModel.yanlis,
-                                    viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.yanlis, viewModel.birinciSecilen!);
 
                                 //viewModel.modelList[viewModel.ikinciSecilen!]
                                 // .renk = viewModel.yanlis;
-                                viewModel.renkDegistir(
-                                    viewModel.yanlis, viewModel.ikinciSecilen!);
-                                await Future.delayed(
-                                    const Duration(seconds: 1));
+                                viewModel.renkDegistir(viewModel.yanlis, viewModel.ikinciSecilen!);
+                                await Future.delayed(const Duration(seconds: 1));
 
-                                viewModel.renkDegistir(viewModel.normal,
-                                    viewModel.birinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal, viewModel.birinciSecilen!);
 
-                                viewModel.renkDegistir(
-                                    viewModel.normal, viewModel.ikinciSecilen!);
+                                viewModel.renkDegistir(viewModel.normal, viewModel.ikinciSecilen!);
                               }
 
                               viewModel.birinciSecilen = null;
@@ -144,21 +121,18 @@ class OrtaZorView extends StatelessWidget {
                                 child: Center(
                                     child: Text(
                                   "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
-                                  style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04),
+                                  style: TextStyle(fontSize: context.width * 0.04),
                                 )),
                               );
                             },
                           ))
                       ]),
                   Center(
-                      child: ElevatedButton(
+                      child: MyButton(
                           onPressed: () {
                             viewModel.navigateHome();
                           },
-                          child: const Text("MENÜ")))
+                          title: "MENÜ"))
                 ],
               ),
             ),

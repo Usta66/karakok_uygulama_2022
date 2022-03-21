@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:square_app/base/view/base_view.dart';
+import 'package:square_app/components/my_button.dart';
 import 'package:square_app/components/my_container_circular.dart';
 import 'package:square_app/view/kolay/kolay_view_model.dart';
 import "package:kartal/kartal.dart";
@@ -13,7 +14,6 @@ class KolayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return BaseView(
         viewModel: viewModel,
         child: Scaffold(
@@ -36,14 +36,7 @@ class KolayView extends StatelessWidget {
                         color: viewModel.zamanVeSkor,
                         controller: viewModel.sureController,
                       )),
-                      // const Spacer(),
-                      Expanded(
-                          child: MyContainerCircular(
-                              color: viewModel.zamanVeSkor,
-                              controller: viewModel.puanController)
-
-                          //color: viewModel.modelList[i].renk
-                          ),
+                      Expanded(child: MyContainerCircular(color: viewModel.zamanVeSkor, controller: viewModel.puanController)),
                     ],
                   ),
                   MyContainerCircular(
@@ -75,14 +68,10 @@ class KolayView extends StatelessWidget {
 
                               viewModel.renkDegistir(viewModel.normal);
 
-                              if (dogalSayimi(
-                                  viewModel
-                                      .modelList[viewModel.birinciSecilen!].b,
-                                  viewModel.b)) {
+                              if (dogalSayimi(viewModel.modelList[viewModel.birinciSecilen!].b, viewModel.b)) {
                                 viewModel.renkDegistir(viewModel.dogru);
 
-                                await Future.delayed(
-                                    const Duration(seconds: 1));
+                                await Future.delayed(const Duration(seconds: 1));
 
                                 viewModel.puanArtir();
 
@@ -96,8 +85,7 @@ class KolayView extends StatelessWidget {
                               } else {
                                 viewModel.renkDegistir(viewModel.yanlis);
 
-                                await Future.delayed(
-                                    const Duration(seconds: 1));
+                                await Future.delayed(const Duration(seconds: 1));
 
                                 viewModel.renkDegistir(viewModel.normal);
                               }
@@ -111,19 +99,18 @@ class KolayView extends StatelessWidget {
                                 child: Center(
                                     child: Text(
                                   "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
-                                  style:
-                                      TextStyle(fontSize: context.width * 0.06),
+                                  style: TextStyle(fontSize: context.width * 0.06),
                                 )),
                               );
                             },
                           ))
                       ]),
                   Center(
-                      child: ElevatedButton(
+                      child: MyButton(
                           onPressed: () {
                             viewModel.navigateHome();
                           },
-                          child: const Text("MENÜ")))
+                          title: "MENÜ"))
                 ],
               ),
             ),
