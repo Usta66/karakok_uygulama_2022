@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:square_app/base/view/base_view.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/components/my_container_circular.dart';
+import 'package:square_app/init/locale_keys.g.dart';
 import 'package:square_app/view/kolay/kolay_view_model.dart';
 import "package:kartal/kartal.dart";
 import '../../init/ortak_fonksiyonlar.dart';
@@ -110,7 +111,7 @@ class KolayView extends StatelessWidget {
                           onPressed: () {
                             viewModel.navigateHome();
                           },
-                          title: "MENÜ"))
+                          text: LocaleKeys.home_menu))
                 ],
               ),
             ),

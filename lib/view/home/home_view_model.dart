@@ -6,17 +6,18 @@ import 'package:square_app/utils/navigation/navigation_services.dart';
 import '../../device/constants/app_constants.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  bool _isLangEn = false;
-
-  bool get isLangEn => _isLangEn;
-
-  set isLangEn(bool isLangEn) {
-    _isLangEn = isLangEn;
-    notifyListeners();
-  }
+  late bool isLangEn;
 
   navigateZor() {
     NavigationServices.instance!.navigate(EnumRoute.ZOR);
+  }
+
+  localeBelirle(BuildContext context) {
+    if (context.locale.languageCode == "en") {
+      isLangEn = true;
+    } else {
+      isLangEn = false;
+    }
   }
 
   navigateOrta() {
@@ -31,13 +32,13 @@ class HomeViewModel extends ChangeNotifier {
     NavigationServices.instance!.navigate(EnumRoute.ONBOARD);
   }
 
-  changeLang(BuildContext context) {
+  changeLang(BuildContext context) async {
     if (isLangEn) {
-      context.setLocale(LocaleConstants.EN_LOCALE);
+      await context.setLocale(LocaleConstants.EN_LOCALE);
     } else {
-      context.setLocale(LocaleConstants.TR_LOCALE);
+      await context.setLocale(LocaleConstants.TR_LOCALE);
     }
 
-    notifyListeners();
+    //notifyListeners();
   }
 }

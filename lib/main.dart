@@ -2,16 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:square_app/device/constants/app_constants.dart';
 import 'package:square_app/utils/navigation/navigation_services.dart';
-
 import 'utils/navigation/enum/enum_navigate.dart';
 import 'utils/navigation/navigator_route_services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyLocalization.ensureInitialized();
+
   runApp(EasyLocalization(
-      startLocale: LocaleConstants.TR_LOCALE,
-      supportedLocales: const [LocaleConstants.EN_LOCALE, LocaleConstants.TR_LOCALE],
-      path: LocaleConstants.LANG_PATH,
-      child: const MyApp()));
+      supportedLocales: const [LocaleConstants.EN_LOCALE, LocaleConstants.TR_LOCALE], path: LocaleConstants.LANG_PATH, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,8 +20,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    TextTheme textThemeBase = Theme.of(context).textTheme;
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+          textTheme: TextTheme(
+              bodyText1: textThemeBase.bodyText1!.copyWith(color: Colors.deepPurpleAccent, fontSize: 15, fontStyle: FontStyle.italic),
+              headline5: textThemeBase.headline5!.copyWith(color: Colors.amber))),
       navigatorKey: NavigationServices.instance!.navigatorKey,
       onGenerateRoute: (settings) => NavigatorRouteServices.onRouteGenarete(settings),
       initialRoute: EnumRoute.SPLASH.name,

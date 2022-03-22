@@ -1,11 +1,13 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:square_app/components/locale_text.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/device/constants/app_constants.dart';
+import 'package:square_app/init/cache/locale_maneger.dart';
 import 'package:square_app/init/locale_keys.g.dart';
 import 'package:square_app/view/home/home_view_model.dart';
 import 'package:kartal/kartal.dart';
@@ -16,57 +18,62 @@ class HomeView extends StatelessWidget {
   final HomeViewModel viewModel;
   @override
   Widget build(BuildContext context) {
+    viewModel.localeBelirle(context);
+
     return BaseView(
       viewModel: viewModel,
       child: Scaffold(
         drawer: Drawer(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(color: Colors.white),
-                accountName: const LocaleText(
+                accountName: LocaleText(
                   text: LocaleKeys.home_uygulamaAdi,
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontSize: 25,
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                accountEmail: const LocaleText(
+                accountEmail: LocaleText(
                   text: LocaleKeys.home_ogretmenAdi,
-                  style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 15, fontStyle: FontStyle.italic),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 currentAccountPicture: Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
               ),
               Padding(
                 padding: context.paddingLow,
-                child: const LocaleText(text: LocaleKeys.home_hakkinda),
+                child: LocaleText(text: LocaleKeys.home_hakkinda),
               ),
               const Divider(),
               TextButton(
-                  onPressed: () {
-                    viewModel.navigateOnboar();
-                  },
-                  child: Consumer<HomeViewModel>(
-                    // ignore: prefer_const_constructors
-                    builder: (context, value, child) => LocaleText(text: LocaleKeys.home_nasilOynanir),
-                  )),
-              Consumer<HomeViewModel>(
-                builder: (context, value, child) {
-                  return Switch(
-                      value: value.isLangEn,
-                      onChanged: (select) {
-                        value.isLangEn = select;
-                        viewModel.changeLang(context);
-                      });
+                onPressed: () {
+                  viewModel.navigateOnboar();
                 },
-              )
+                child: LocaleText(text: LocaleKeys.home_nasilOynanir),
+              ),
+              const Divider(),
+              Padding(
+                padding: context.paddingLow,
+                child: Row(
+                  children: [
+                    Text("Dil", style: Theme.of(context).textTheme.bodyText1),
+                    Switch(
+                        value: viewModel.isLangEn,
+                        onChanged: (select) {
+                          viewModel.isLangEn = select;
+
+                          viewModel.changeLang(context);
+                        }),
+                    Text("İngilizce", style: Theme.of(context).textTheme.bodyText1)
+                  ],
+                ),
+              ),
+              Divider()
             ],
           ),
         ),
         appBar: AppBar(
-          title: const Text("Karekök Uygulaması"),
+          title: LocaleText(text: LocaleKeys.home_uygulamaAdi),
           centerTitle: true,
           actions: [
             Padding(
@@ -91,7 +98,7 @@ class HomeView extends StatelessWidget {
                   onPressed: () {
                     viewModel.navigateKolay();
                   },
-                  title: "KOLAY",
+                  text: LocaleKeys.home_kolay,
                 ),
               ),
               Padding(
@@ -100,7 +107,7 @@ class HomeView extends StatelessWidget {
                   onPressed: () {
                     viewModel.navigateOrta();
                   },
-                  title: "ORTA",
+                  text: LocaleKeys.home_orta,
                 ),
               ),
               Padding(
@@ -109,9 +116,14 @@ class HomeView extends StatelessWidget {
                   onPressed: () {
                     viewModel.navigateZor();
                   },
-                  title: "ZOR",
+                  text: LocaleKeys.home_zor,
                 ),
-              )
+              ),
+              TextButton(
+                  onPressed: () {
+                    LocaleManeger.instance.clear();
+                  },
+                  child: Text("Clear Sheard"))
             ],
           ),
         ),

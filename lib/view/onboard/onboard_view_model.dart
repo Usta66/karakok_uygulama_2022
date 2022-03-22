@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:square_app/utils/extensions/extensions.dart';
 
 import '../../device/constants/app_constants.dart';
+import '../../init/locale_keys.g.dart';
 import 'onboard_model.dart';
 
 class OnboardViewModel extends ChangeNotifier {
@@ -17,18 +19,18 @@ class OnboardViewModel extends ChangeNotifier {
 
   void init() {
     onboardItems.add(OnboardModel(
-        title: "ÖĞRENCİ TESLİ SİSTEMi",
-        description: "Güvenle Çoçuğunuzu Okula Bırakın Alın",
+        title: LocaleKeys.onboard_title1.locale,
+        description: LocaleKeys.onboard_subTitle1.locale,
         imagePath: AssetsConstants.instance!.ONBOARD_SVG1));
 
     onboardItems.add(OnboardModel(
-        title: "Okul İdarecileri İçiniz Rahat Olsun",
-        description: "Öğrencinin Giriş-Çıkış Saatlerini Kayıt Altına Alın",
+        title: LocaleKeys.onboard_title2.locale,
+        description: LocaleKeys.onboard_subTitle2.locale,
         imagePath: AssetsConstants.instance!.ONBOARD_SVG2));
 
     onboardItems.add(OnboardModel(
-        title: "KareKökkkk",
-        description: "Öğrencinin Giriş-Çıkış Saatlerini Kayıt Altına Alın",
+        title: LocaleKeys.onboard_title3.locale,
+        description: LocaleKeys.onboard_subTitle3.locale,
         imagePath: AssetsConstants.instance!.ONBOARD_SVG2));
   }
 }

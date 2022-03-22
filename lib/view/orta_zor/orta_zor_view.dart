@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:square_app/init/locale_keys.g.dart';
 
 import 'package:square_app/view/orta_zor/orta_zor_view_model.dart';
 
@@ -132,7 +133,7 @@ class OrtaZorView extends StatelessWidget {
                           onPressed: () {
                             viewModel.navigateHome();
                           },
-                          title: "MENÜ"))
+                          text: LocaleKeys.home_menu))
                 ],
               ),
             ),

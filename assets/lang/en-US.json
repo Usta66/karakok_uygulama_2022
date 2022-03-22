@@ -5,7 +5,18 @@
         "orta": "MIDDLE",
         "zor": "HARD",
         "ogretmenAdi": "Esma ASLAN KARABACAK\nesmaaslan06@gmail.com",
-        "hakkinda": "This app has been developed for M.8.1.3.6 earnings.\n\n When multiplied by square root, the result determines multipliers that have natural numbers.",
-        "nasilOynanir": "How to play"
+        "hakkinda": "This app has been developed for M.8.1.3.6 earnings.\n\nWhen multiplied by square root, the result determines multipliers that have natural numbers.",
+        "nasilOynanir": "How to play",
+        "menu": "MENU",
+        "dil": "Dil",
+        "ingilizce": "İngilizce"
+    },
+    "onboard": {
+        "title1": "The square root app has been developed for students.",
+        "subTitle1": "It is a beautiful practice.",
+        "title2": "Square root app easy level.",
+        "subTitle2": "Find the value of multiplications, let's see ",
+        "title3": "Hard level",
+        "subTitle3": "Let's come to you, let's start"
     }
 }

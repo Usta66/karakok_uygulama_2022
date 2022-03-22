@@ -7,6 +7,7 @@ import '../../init/cache/locale_maneger.dart';
 
 class SplashViewModel extends ChangeNotifier {
   control() async {
+    await LocaleManeger.prefrencesInit();
 
     await Future.delayed(const Duration(milliseconds: 5600));
 
@@ -14,17 +15,13 @@ class SplashViewModel extends ChangeNotifier {
   }
 
   navigate() async {
+    bool? isOpen = LocaleManeger.instance.getBoolValue(EnumPreferencesKeys.ISFIRSTOPEN);
 
- await LocaleManeger.prefrencesInit();
-bool? isOpen = LocaleManeger.instance.getBoolValue(EnumPreferencesKeys.ISFIRSTOPEN);
-
- if (isOpen == null || isOpen == false) {
+    if (isOpen == null || isOpen == false) {
       LocaleManeger.instance.setBoolValue(EnumPreferencesKeys.ISFIRSTOPEN, true);
-    NavigationServices.instance!.navigate(EnumRoute.ONBOARD);
+      NavigationServices.instance!.navigate(EnumRoute.ONBOARD);
     } else {
       NavigationServices.instance?.navigateToReset(EnumRoute.HOME);
     }
-
-    
   }
 }
