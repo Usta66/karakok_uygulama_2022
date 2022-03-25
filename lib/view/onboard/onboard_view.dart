@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:square_app/base/view/base_view.dart';
+import '../../base/view/base_view.dart';
 
 import '../../utils/navigation/enum/enum_navigate.dart';
 import '../../utils/navigation/navigation_services.dart';
@@ -20,7 +20,7 @@ class OnboardView extends StatelessWidget {
         viewModel: viewModel,
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsetsDirectional.all(0.8),
+            padding: context.paddingLow,
             child: Column(
               children: [
                 const Spacer(
@@ -33,8 +33,7 @@ class OnboardView extends StatelessWidget {
                         viewModel.changeCurrentIndex(value);
                       },
                       itemCount: viewModel.onboardItems.length,
-                      itemBuilder: (context, index) => builColumnBody(
-                          context, viewModel.onboardItems[index]),
+                      itemBuilder: (context, index) => builColumnBody(context, viewModel.onboardItems[index]),
                     )),
                 Expanded(
                     flex: 2,
@@ -53,12 +52,8 @@ class OnboardView extends StatelessWidget {
                                       selector: (p0, p1) => p1.curruntIndex,
                                       builder: (_, value, __) {
                                         return CircleAvatar(
-                                          backgroundColor: Colors.purple
-                                              .withOpacity(
-                                                  value == index ? 1 : 0.2),
-                                          radius: value == index
-                                              ? context.width * 0.015
-                                              : context.width * 0.01,
+                                          backgroundColor: Colors.purple.withOpacity(value == index ? 1 : 0.2),
+                                          radius: value == index ? context.width * 0.015 : context.width * 0.01,
                                         );
                                       },
                                     ));
@@ -69,7 +64,7 @@ class OnboardView extends StatelessWidget {
                             backgroundColor: Colors.purpleAccent,
                             child: const Icon(Icons.keyboard_arrow_right_sharp),
                             onPressed: () {
-                               NavigationServices.instance!.navigateToReset(EnumRoute.HOME);
+                              NavigationServices.instance!.navigateToReset(EnumRoute.HOME);
                             })
                       ],
                     ))
@@ -82,10 +77,7 @@ class OnboardView extends StatelessWidget {
 
 Column builColumnBody(BuildContext context, OnboardModel onboardItem) {
   return Column(
-    children: [
-      Expanded(flex: 5, child: buildSvgPicture(onboardItem.imagePath)),
-      buildColumnDescription(context, onboardItem)
-    ],
+    children: [Expanded(flex: 5, child: buildSvgPicture(onboardItem.imagePath)), buildColumnDescription(context, onboardItem)],
   );
 }
 
@@ -93,20 +85,13 @@ Column buildColumnDescription(BuildContext context, OnboardModel onboardItem) {
   return Column(
     children: [
       Text(onboardItem.title,
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headline3!
-              .copyWith(fontWeight: FontWeight.bold, color: Colors.black)),
+          textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold, color: Colors.black)),
       Padding(
         padding: context.horizontalPaddingHigh,
         child: Text(
           onboardItem.description,
           textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .subtitle1!
-              .copyWith(fontWeight: FontWeight.bold, color: Colors.black45),
+          style: Theme.of(context).textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold, color: Colors.black45),
         ),
       )
     ],

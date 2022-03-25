@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:square_app/utils/extensions/extensions.dart';
+import '../../utils/extensions/extensions.dart';
 
 import '../../device/constants/app_constants.dart';
 import '../../init/locale_keys.g.dart';

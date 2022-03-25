@@ -1,17 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:square_app/utils/navigation/enum/enum_navigate.dart';
-import 'package:square_app/utils/navigation/navigation_services.dart';
 
+import '../../init/ortak_fonksiyonlar.dart';
 import '../../model/karekok_model.dart';
+import '../../utils/navigation/enum/enum_navigate.dart';
+import '../../utils/navigation/navigation_services.dart';
 
 class OrtaZorViewModel extends ChangeNotifier {
-  Color seciliRenk = const Color(0xFFC5CAE9);
-  Color normal = const Color(0xFFB2DFDB);
-  Color dogru = const Color(0xFF4caf50);
-  Color yanlis = const Color(0xFFb71c1c);
-  Color zamanVeSkor = const Color(0xFFFFD900);
   late int oyunSuresi;
   final int oyunSuresiSabit = 60;
   final int oyunEkSure = 10;
@@ -29,44 +25,14 @@ class OrtaZorViewModel extends ChangeNotifier {
 
   List<KaraKokModel> modelList = [];
   List<int> bTemp = [];
-  List<int> bList = [
-    2,
-    3,
-    5,
-    6,
-    7,
-    8,
-    10,
-    12,
-    18,
-    20,
-    24,
-    28,
-    32,
-    40,
-    45,
-    48,
-    50,
-    54,
-    72,
-    75,
-    80,
-    90,
-    98,
-    108,
-    125,
-    180,
-    300,
-    500,
-    600
-  ];
+  List<int> bList = [2, 3, 5, 6, 7, 8, 10, 12, 18, 20, 24, 28, 32, 40, 45, 48, 50, 54, 72, 75, 80, 90, 98, 108, 125, 180, 300, 500, 600];
 
   void init() {
     oyunSuresi = oyunSuresiSabit;
     puan = 0;
     sureController = TextEditingController(text: oyunSuresi.toString());
     puanController = TextEditingController(text: puan.toString());
-    geriSayimSayaci();
+    OrtakFonksiyonlar.instance!.geriSayimSayaci(oyunSuresi: oyunSuresi, puan: puan, sureController: sureController, scaffoldKey: scaffoldKey);
   }
 
   void zorSevyeIndexSec() {
@@ -81,8 +47,6 @@ class OrtaZorViewModel extends ChangeNotifier {
 
   void modelListesiniDoldurZor() {
     for (var i = 0; i < 16; i++) {
-      //index = Random().nextInt(bList.length);
-
       model = KaraKokModel(a: Random().nextInt(5) + 1, b: bTemp[i]);
 
       modelList.add(model);
@@ -118,64 +82,25 @@ class OrtaZorViewModel extends ChangeNotifier {
   }
 
   void puanArtir() {
-    puan++;
-    puanController.text = puan.toString();
+    OrtakFonksiyonlar.instance!.puanArtir(puan: puan, puanController: puanController);
   }
 
   oyunSuresiArtir() {
-    oyunSuresi = oyunSuresi + oyunEkSure;
-
-    if (oyunSuresi > oyunSuresiSabit) {
-      oyunSuresi = oyunSuresiSabit;
-    }
-    sureController.text = oyunSuresi.toString();
+    OrtakFonksiyonlar.instance!
+        .oyunSuresiArtir(oyunSuresi: oyunSuresi, oyunEkSure: oyunEkSure, oyunSuresiSabit: oyunSuresiSabit, sureController: sureController);
   }
 
-  Future<void> geriSayimSayaci() async {
-    for (int i = 0; oyunSuresi > 0; i++) {
-      await Future.delayed(const Duration(seconds: 1));
-      oyunSuresi--;
-      sureController.text = oyunSuresi.toString();
-
-    }
-    if (scaffoldKey.currentContext != null) {
-      showDialog(
-        barrierDismissible: false,
-        context: scaffoldKey.currentContext!,
-        builder: (context) {
-          return AlertDialog(
-            title: Center(child: Text("Tebrikler $puan Puan Aldınız")),
-            content: TextButton(
-              child: const Text("Yeni Oyun"),
-              onPressed: () {
-                if (isZor) {
-                  NavigationServices.instance!.navigateToReset(EnumRoute.ZOR);
-                } else {
-                  NavigationServices.instance!.navigateToReset(EnumRoute.ORTA);
-                }
-              },
-            ),
-          );
-        },
-      );
-    }
+  bool dogalSayimi() {
+    return OrtakFonksiyonlar.instance!.dogalSayimi(modelList[birinciSecilen!].b, modelList[ikinciSecilen!].b);
   }
 
   void yeniSayiEkle() {
     modelList.removeAt(birinciSecilen!);
-    modelList.insert(
-        birinciSecilen!,
-        KaraKokModel(
-            a: Random().nextInt(5) + 1,
-            b: bList[Random().nextInt(bList.length)]));
+    modelList.insert(birinciSecilen!, KaraKokModel(a: Random().nextInt(5) + 1, b: bList[Random().nextInt(bList.length)]));
 
     modelList.removeAt(ikinciSecilen!);
 
-    modelList.insert(
-        ikinciSecilen!,
-        KaraKokModel(
-            a: Random().nextInt(5) + 1,
-            b: bList[Random().nextInt(bList.length)]));
+    modelList.insert(ikinciSecilen!, KaraKokModel(a: Random().nextInt(5) + 1, b: bList[Random().nextInt(bList.length)]));
   }
 
   navigateHome() {

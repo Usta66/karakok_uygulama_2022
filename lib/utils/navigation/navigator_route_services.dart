@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:square_app/view/home/home_view.dart';
-import 'package:square_app/view/home/home_view_model.dart';
-import 'package:square_app/view/kolay/kolay_view.dart';
-import 'package:square_app/view/kolay/kolay_view_model.dart';
-import 'package:square_app/view/onboard/onboard_view.dart';
-import 'package:square_app/view/onboard/onboard_view_model.dart';
-import 'package:square_app/view/orta_zor/orta_zor_view.dart';
-import 'package:square_app/view/orta_zor/orta_zor_view_model.dart';
-import 'package:square_app/view/splash/splash_view.dart';
-import 'package:square_app/view/splash/splash_view_model.dart';
+import '../../view/home/home_view.dart';
+import '../../view/home/home_view_model.dart';
+import '../../view/kolay/kolay_view.dart';
+import '../../view/kolay/kolay_view_model.dart';
+import '../../view/onboard/onboard_view.dart';
+import '../../view/onboard/onboard_view_model.dart';
+import '../../view/orta_zor/orta_zor_view.dart';
+import '../../view/orta_zor/orta_zor_view_model.dart';
+import '../../view/splash/splash_view.dart';
+import '../../view/splash/splash_view_model.dart';
 
 import 'transition/scale_transition.dart';
 

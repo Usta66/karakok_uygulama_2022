@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:square_app/init/cache/enum_preferences_keys.dart';
-import 'package:square_app/utils/navigation/enum/enum_navigate.dart';
-import 'package:square_app/utils/navigation/navigation_services.dart';
+import '../../init/cache/enum_preferences_keys.dart';
+import '../../utils/navigation/enum/enum_navigate.dart';
+import '../../utils/navigation/navigation_services.dart';
 
 import '../../init/cache/locale_maneger.dart';
 
 class SplashViewModel extends ChangeNotifier {
   control() async {
     await LocaleManeger.prefrencesInit();
-
     await Future.delayed(const Duration(milliseconds: 5600));
-
     navigate();
   }
 

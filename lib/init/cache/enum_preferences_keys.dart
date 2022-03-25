@@ -1,2 +1,2 @@
 // ignore: constant_identifier_names
-enum EnumPreferencesKeys { ISFIRSTOPEN, ISLANGEN }
+enum EnumPreferencesKeys { ISFIRSTOPEN }

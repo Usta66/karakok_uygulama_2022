@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:square_app/base/view/base_view.dart';
-import 'package:square_app/device/constants/app_constants.dart';
-import 'package:square_app/view/splash/splash_view_model.dart';
+import '../../base/view/base_view.dart';
+import '../../device/constants/app_constants.dart';
+import 'splash_view_model.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key, required this.viewModel}) : super(key: key);

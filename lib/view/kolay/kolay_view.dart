@@ -1,12 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:square_app/base/view/base_view.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/components/my_container_circular.dart';
+import 'package:square_app/device/theme/myColors.dart';
 import 'package:square_app/init/locale_keys.g.dart';
 import 'package:square_app/view/kolay/kolay_view_model.dart';
 import "package:kartal/kartal.dart";
-import '../../init/ortak_fonksiyonlar.dart';
+import '../../components/locale_text.dart';
 
 class KolayView extends StatelessWidget {
   const KolayView({Key? key, required this.viewModel}) : super(key: key);
@@ -15,12 +18,13 @@ class KolayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context).primaryColor;
     return BaseView(
         viewModel: viewModel,
         child: Scaffold(
           key: viewModel.scaffoldKey,
           appBar: AppBar(
-            title: const Text("KOLAY"),
+            title: LocaleText(text: LocaleKeys.home_kolay),
             centerTitle: true,
           ),
           body: SingleChildScrollView(
@@ -34,78 +38,17 @@ class KolayView extends StatelessWidget {
                     children: [
                       Expanded(
                           child: MyContainerCircular(
-                        color: viewModel.zamanVeSkor,
+                        color: MyColors.instance!.zamanVeSkor,
                         controller: viewModel.sureController,
                       )),
-                      Expanded(child: MyContainerCircular(color: viewModel.zamanVeSkor, controller: viewModel.puanController)),
+                      Expanded(child: MyContainerCircular(color: MyColors.instance!.zamanVeSkor, controller: viewModel.puanController)),
                     ],
                   ),
                   MyContainerCircular(
-                    color: viewModel.normal,
+                    color: MyColors.instance!.normal,
                     controller: viewModel.kareKokController,
                   ),
-                  GridView.count(
-                      shrinkWrap: true,
-                      controller: ScrollController(keepScrollOffset: false),
-                      scrollDirection: Axis.vertical,
-                      // primary: false,
-                      padding: context.paddingNormal,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 3,
-                      children: [
-                        for (var i = 0; i < 6; i++)
-                          InkResponse(onTap: () async {
-                            if (viewModel.birinciSecilen == null) {
-                              viewModel.birinciSecilen = i;
-
-                              viewModel.renkDegistir(
-                                viewModel.seciliRenk,
-                              );
-                            }
-
-                            {
-                              await Future.delayed(const Duration(seconds: 1));
-
-                              viewModel.renkDegistir(viewModel.normal);
-
-                              if (dogalSayimi(viewModel.modelList[viewModel.birinciSecilen!].b, viewModel.b)) {
-                                viewModel.renkDegistir(viewModel.dogru);
-
-                                await Future.delayed(const Duration(seconds: 1));
-
-                                viewModel.puanArtir();
-
-                                viewModel.oyunSuresiArtir();
-
-                                viewModel.karekokDegistir();
-
-                                viewModel.renkDegistir(viewModel.normal);
-
-                                viewModel.birinciSecilen = null;
-                              } else {
-                                viewModel.renkDegistir(viewModel.yanlis);
-
-                                await Future.delayed(const Duration(seconds: 1));
-
-                                viewModel.renkDegistir(viewModel.normal);
-                              }
-
-                              viewModel.birinciSecilen = null;
-                            }
-                          }, child: Consumer<KolayViewModel>(
-                            builder: (context, value, child) {
-                              return MyContainerCircular(
-                                color: viewModel.modelList[i].renk,
-                                child: Center(
-                                    child: Text(
-                                  "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
-                                  style: TextStyle(fontSize: context.width * 0.06),
-                                )),
-                              );
-                            },
-                          ))
-                      ]),
+                  buildGridView(context),
                   Center(
                       child: MyButton(
                           onPressed: () {
@@ -117,5 +60,69 @@ class KolayView extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  GridView buildGridView(BuildContext context) {
+    return GridView.count(
+        shrinkWrap: true,
+        controller: ScrollController(keepScrollOffset: false),
+        scrollDirection: Axis.vertical,
+        padding: context.paddingNormal,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 3,
+        children: [
+          for (var i = 0; i < 6; i++)
+            InkResponse(onTap: () async {
+              if (viewModel.birinciSecilen == null) {
+                viewModel.birinciSecilen = i;
+
+                viewModel.renkDegistir(
+                  MyColors.instance!.seciliRenk,
+                );
+              }
+
+              {
+                await Future.delayed(const Duration(seconds: 1));
+
+                viewModel.renkDegistir(MyColors.instance!.normal);
+
+                if (viewModel.dogalSayimi()) {
+                  viewModel.renkDegistir(MyColors.instance!.dogru);
+
+                  await Future.delayed(const Duration(seconds: 1));
+
+                  viewModel.puanArtir();
+
+                  viewModel.oyunSuresiArtir();
+
+                  viewModel.karekokDegistir();
+
+                  viewModel.renkDegistir(MyColors.instance!.normal);
+
+                  viewModel.birinciSecilen = null;
+                } else {
+                  viewModel.renkDegistir(MyColors.instance!.yanlis);
+
+                  await Future.delayed(const Duration(seconds: 1));
+
+                  viewModel.renkDegistir(MyColors.instance!.normal);
+                }
+
+                viewModel.birinciSecilen = null;
+              }
+            }, child: Consumer<KolayViewModel>(
+              builder: (context, value, child) {
+                return MyContainerCircular(
+                  color: viewModel.modelList[i].renk,
+                  child: Center(
+                      child: Text(
+                    "${viewModel.modelList[i].a} √${viewModel.modelList[i].b} ",
+                    style: TextStyle(fontSize: context.width * 0.06),
+                  )),
+                );
+              },
+            ))
+        ]);
   }
 }

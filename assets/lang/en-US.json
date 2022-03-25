@@ -18,5 +18,10 @@
         "subTitle2": "Find the value of multiplications, let's see ",
         "title3": "Hard level",
         "subTitle3": "Let's come to you, let's start"
+    },
+    "diolog": {
+        "tebrikler": "Congratulations",
+        "puanAldiniz": "We Have Teceived Points",
+        "yeniOyun": "New Game"
     }
 }

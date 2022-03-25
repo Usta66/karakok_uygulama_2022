@@ -18,5 +18,10 @@
         "subTitle2": "Çarpımları Tam Sayı Olan Değeri Bulun Bakalım",
         "title3": "Zor Sevye",
         "subTitle3": "Tam Sana Göre Hadi Başlayalım"
+    },
+    "diolog": {
+        "tebrikler": "Tebrikler",
+        "puanAldiniz": "Puan Aldinız",
+        "yeniOyun": "Yeni Oyun"
     }
 }

@@ -32,7 +32,7 @@ class HomeView extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.white),
                 accountName: LocaleText(
                   text: LocaleKeys.home_uygulamaAdi,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.amber),
                 ),
                 accountEmail: LocaleText(
                   text: LocaleKeys.home_ogretmenAdi,
@@ -54,17 +54,22 @@ class HomeView extends StatelessWidget {
               const Divider(),
               Padding(
                 padding: context.paddingLow,
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Dil", style: Theme.of(context).textTheme.bodyText1),
-                    Switch(
-                        value: viewModel.isLangEn,
-                        onChanged: (select) {
-                          viewModel.isLangEn = select;
+                    LocaleText(text: LocaleKeys.home_dil, style: Theme.of(context).textTheme.bodyText1),
+                    Row(
+                      children: [
+                        LocaleText(text: LocaleKeys.home_ingilizce, style: Theme.of(context).textTheme.bodyText1),
+                        Switch(
+                            value: viewModel.isLangEn,
+                            onChanged: (select) {
+                              viewModel.isLangEn = select;
 
-                          viewModel.changeLang(context);
-                        }),
-                    Text("İngilizce", style: Theme.of(context).textTheme.bodyText1)
+                              viewModel.changeLang(context);
+                            })
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -77,7 +82,7 @@ class HomeView extends StatelessWidget {
           centerTitle: true,
           actions: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: context.paddingLow,
               child: IconButton(
                 icon: const Icon(Icons.power_settings_new),
                 onPressed: () {
@@ -118,12 +123,7 @@ class HomeView extends StatelessWidget {
                   },
                   text: LocaleKeys.home_zor,
                 ),
-              ),
-              TextButton(
-                  onPressed: () {
-                    LocaleManeger.instance.clear();
-                  },
-                  child: Text("Clear Sheard"))
+              )
             ],
           ),
         ),

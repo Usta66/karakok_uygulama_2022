@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:square_app/utils/navigation/enum/enum_navigate.dart';
-import 'package:square_app/utils/navigation/navigation_services.dart';
+import '../../utils/navigation/enum/enum_navigate.dart';
+import '../../utils/navigation/navigation_services.dart';
 
 import '../../device/constants/app_constants.dart';
 
