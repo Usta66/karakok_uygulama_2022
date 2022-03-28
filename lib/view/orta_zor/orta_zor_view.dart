@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import '../../components/locale_text.dart';
-import '../../init/locale_keys.g.dart';
-import 'orta_zor_view_model.dart';
+
 import '../../base/view/base_view.dart';
+import '../../components/locale_text.dart';
 import '../../components/my_button.dart';
 import '../../components/my_container_circular.dart';
 import '../../device/theme/myColors.dart';
-import 'package:kartal/kartal.dart';
+import '../../init/locale_keys.g.dart';
+import 'orta_zor_view_model.dart';
 
 class OrtaZorView extends StatelessWidget {
   const OrtaZorView({Key? key, required this.viewModel}) : super(key: key);
@@ -23,7 +24,7 @@ class OrtaZorView extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             // ignore: prefer_const_constructors
-            title: viewModel.isZor ? LocaleText(text: LocaleKeys.home_orta) : LocaleText(text: LocaleKeys.home_zor),
+            title: viewModel.isZor ? LocaleText(text: LocaleKeys.home_zor) : LocaleText(text: LocaleKeys.home_orta),
           ),
           body: SingleChildScrollView(
             child: Padding(

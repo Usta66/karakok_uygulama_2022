@@ -38,7 +38,5 @@ class HomeViewModel extends ChangeNotifier {
     } else {
       await context.setLocale(LocaleConstants.TR_LOCALE);
     }
-
-    //notifyListeners();
   }
 }

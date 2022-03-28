@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import 'device/constants/app_constants.dart';
-import 'utils/navigation/navigation_services.dart';
 import 'utils/navigation/enum/enum_navigate.dart';
+import 'utils/navigation/navigation_services.dart';
 import 'utils/navigation/navigator_route_services.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textThemeBase = Theme.of(context).textTheme;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           textTheme: TextTheme(

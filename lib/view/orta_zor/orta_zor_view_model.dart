@@ -1,7 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
+import 'package:square_app/utils/extensions/extensions.dart';
+import '../../components/locale_text.dart';
+import '../../init/locale_keys.g.dart';
 import '../../init/ortak_fonksiyonlar.dart';
 import '../../model/karekok_model.dart';
 import '../../utils/navigation/enum/enum_navigate.dart';
@@ -32,7 +33,7 @@ class OrtaZorViewModel extends ChangeNotifier {
     puan = 0;
     sureController = TextEditingController(text: oyunSuresi.toString());
     puanController = TextEditingController(text: puan.toString());
-    OrtakFonksiyonlar.instance!.geriSayimSayaci(oyunSuresi: oyunSuresi, puan: puan, sureController: sureController, scaffoldKey: scaffoldKey);
+    geriSayimSayaci();
   }
 
   void zorSevyeIndexSec() {
@@ -82,16 +83,21 @@ class OrtaZorViewModel extends ChangeNotifier {
   }
 
   void puanArtir() {
-    OrtakFonksiyonlar.instance!.puanArtir(puan: puan, puanController: puanController);
+    puan++;
+    puanController.text = puan.toString();
   }
 
   oyunSuresiArtir() {
-    OrtakFonksiyonlar.instance!
-        .oyunSuresiArtir(oyunSuresi: oyunSuresi, oyunEkSure: oyunEkSure, oyunSuresiSabit: oyunSuresiSabit, sureController: sureController);
+    oyunSuresi = oyunSuresi + oyunEkSure;
+
+    if (oyunSuresi > oyunSuresiSabit) {
+      oyunSuresi = oyunSuresiSabit;
+    }
+    sureController.text = oyunSuresi.toString();
   }
 
   bool dogalSayimi() {
-    return OrtakFonksiyonlar.instance!.dogalSayimi(modelList[birinciSecilen!].b, modelList[ikinciSecilen!].b);
+    return OrtakFonksiyonlar().dogalSayimi(modelList[birinciSecilen!].b, modelList[ikinciSecilen!].b);
   }
 
   void yeniSayiEkle() {
@@ -105,5 +111,31 @@ class OrtaZorViewModel extends ChangeNotifier {
 
   navigateHome() {
     NavigationServices.instance!.navigateToReset(EnumRoute.HOME);
+  }
+
+  Future<void> geriSayimSayaci() async {
+    for (int i = 0; oyunSuresi > 0; i++) {
+      await Future.delayed(const Duration(seconds: 1));
+      oyunSuresi--;
+      sureController.text = oyunSuresi.toString();
+    }
+    if (scaffoldKey.currentContext != null) {
+      showDialog(
+        barrierDismissible: false,
+        context: scaffoldKey.currentContext!,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(child: Text("${LocaleKeys.diolog_tebrikler.locale} $puan ${LocaleKeys.diolog_puanAldiniz.locale}")),
+            content: TextButton(
+              // ignore: prefer_const_constructors
+              child: LocaleText(text: LocaleKeys.diolog_yeniOyun),
+              onPressed: () {
+                NavigationServices.instance!.navigateToReset(EnumRoute.KOLAY);
+              },
+            ),
+          );
+        },
+      );
+    }
   }
 }

@@ -3,14 +3,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
 import 'package:square_app/components/locale_text.dart';
 import 'package:square_app/components/my_button.dart';
 import 'package:square_app/device/constants/app_constants.dart';
-import 'package:square_app/init/cache/locale_maneger.dart';
 import 'package:square_app/init/locale_keys.g.dart';
 import 'package:square_app/view/home/home_view_model.dart';
-import 'package:kartal/kartal.dart';
+
 import '../../base/view/base_view.dart';
 
 class HomeView extends StatelessWidget {

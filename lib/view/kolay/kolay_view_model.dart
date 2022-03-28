@@ -2,8 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../components/locale_text.dart';
+import '../../init/locale_keys.g.dart';
 import '../../init/ortak_fonksiyonlar.dart';
 import '../../model/karekok_model.dart';
+import '../../utils/extensions/extensions.dart';
 import '../../utils/navigation/enum/enum_navigate.dart';
 import '../../utils/navigation/navigation_services.dart';
 
@@ -40,7 +43,7 @@ class KolayViewModel extends ChangeNotifier {
     puanController = TextEditingController(text: puan.toString());
     modelListDoldur();
 
-    OrtakFonksiyonlar.instance!.geriSayimSayaci(oyunSuresi: oyunSuresi, puan: puan, sureController: sureController, scaffoldKey: scaffoldKey);
+    geriSayimSayaci();
 
     kareKokController = TextEditingController(text: "$a√$b");
   }
@@ -62,12 +65,17 @@ class KolayViewModel extends ChangeNotifier {
   }
 
   void puanArtir() {
-    OrtakFonksiyonlar.instance!.puanArtir(puan: puan, puanController: puanController);
+    puan++;
+    puanController.text = puan.toString();
   }
 
   oyunSuresiArtir() {
-    OrtakFonksiyonlar.instance!
-        .oyunSuresiArtir(oyunSuresi: oyunSuresi, oyunEkSure: oyunEkSure, oyunSuresiSabit: oyunSuresiSabit, sureController: sureController);
+    oyunSuresi = oyunSuresi + oyunEkSure;
+
+    if (oyunSuresi > oyunSuresiSabit) {
+      oyunSuresi = oyunSuresiSabit;
+    }
+    sureController.text = oyunSuresi.toString();
   }
 
   void karekokDegistir() {
@@ -82,6 +90,32 @@ class KolayViewModel extends ChangeNotifier {
   }
 
   bool dogalSayimi() {
-    return OrtakFonksiyonlar.instance!.dogalSayimi(modelList[birinciSecilen!].b, b);
+    return OrtakFonksiyonlar().dogalSayimi(modelList[birinciSecilen!].b, b);
+  }
+
+  Future<void> geriSayimSayaci() async {
+    for (int i = 0; oyunSuresi > 0; i++) {
+      await Future.delayed(const Duration(seconds: 1));
+      oyunSuresi--;
+      sureController.text = oyunSuresi.toString();
+    }
+    if (scaffoldKey.currentContext != null) {
+      showDialog(
+        barrierDismissible: false,
+        context: scaffoldKey.currentContext!,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(child: Text("${LocaleKeys.diolog_tebrikler.locale} $puan ${LocaleKeys.diolog_puanAldiniz.locale}")),
+            content: TextButton(
+              // ignore: prefer_const_constructors
+              child: LocaleText(text: LocaleKeys.diolog_yeniOyun),
+              onPressed: () {
+                NavigationServices.instance!.navigateToReset(EnumRoute.KOLAY);
+              },
+            ),
+          );
+        },
+      );
+    }
   }
 }

@@ -1,4 +1,7 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
+
 import '../../view/home/home_view.dart';
 import '../../view/home/home_view_model.dart';
 import '../../view/kolay/kolay_view.dart';
@@ -9,7 +12,6 @@ import '../../view/orta_zor/orta_zor_view.dart';
 import '../../view/orta_zor/orta_zor_view_model.dart';
 import '../../view/splash/splash_view.dart';
 import '../../view/splash/splash_view_model.dart';
-
 import 'transition/scale_transition.dart';
 
 class NavigatorRouteServices {
@@ -40,7 +42,7 @@ class NavigatorRouteServices {
     return MaterialPageRoute(builder: (context) => page);
   }
 
-  static _navigateToScaleDeafult<T extends ChangeNotifier>(T viewModel, Widget page) {
-    return ScaleRoute<T>(page, viewModel);
+  static _navigateToScaleDeafult(Widget page) {
+    return ScaleRoute(page);
   }
 }
