@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 class LottieConstants {
@@ -10,16 +12,16 @@ class LottieConstants {
 
   LottieConstants._init();
 
-  // ignore: non_constant_identifier_names
+  
   final String SPLASH = "assets/lottie/maths_splash.json";
 
-  // ignore: non_constant_identifier_names
+  
   final String SEVYESECME = "assets/lottie/maths_sevye_secme.json";
 
-  // ignore: non_constant_identifier_names
+ 
   final String SEVYESECME2 = "assets/lottie/maths_sevye_secme2.json";
 
-  // ignore: non_constant_identifier_names
+ 
   final String DRAWER_LOTTIE = "assets/lottie/drawer_lottie.json";
 }
 
@@ -32,10 +34,11 @@ class AssetsConstants {
 
   AssetsConstants._init();
 
-  // ignore: non_constant_identifier_names
   final String ONBOARD_SVG1 = "assets/images/svg/onboard_1.svg";
-  // ignore: non_constant_identifier_names
+ 
   final String ONBOARD_SVG2 = "assets/images/svg/onboard_2.svg";
+
+  final String ONBOARD_SVG3 = "assets/images/svg/onboard_3.svg";
 }
 
 class LocaleConstants {

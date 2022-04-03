@@ -1,0 +1,4 @@
+#Sun Mar 20 21:59:37 EET 2022
+base.0=C\:\\Users\\USTA\\karakok_uygulama_2022\\square_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

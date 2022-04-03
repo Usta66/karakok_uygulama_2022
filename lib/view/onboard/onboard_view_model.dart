@@ -31,6 +31,6 @@ class OnboardViewModel extends ChangeNotifier {
     onboardItems.add(OnboardModel(
         title: LocaleKeys.onboard_title3.locale,
         description: LocaleKeys.onboard_subTitle3.locale,
-        imagePath: AssetsConstants.instance!.ONBOARD_SVG2));
+        imagePath: AssetsConstants.instance!.ONBOARD_SVG3));
   }
 }

@@ -12,16 +12,16 @@
         "ingilizce": "English"
     },
     "onboard": {
-        "title1": "Karekök Uygulaması Öğrenciler İçin Geliştirlmiştir.",
-        "subTitle1": "Güzel Bir Uygulamadır.",
-        "title2": "Karekök Uygulaması Kolay Sevye.",
-        "subTitle2": "Çarpımları Tam Sayı Olan Değeri Bulun Bakalım",
-        "title3": "Zor Sevye",
-        "subTitle3": "Tam Sana Göre Hadi Başlayalım"
+        "title1": "Karekök Uygulaması İle Hızını Arttır.",
+        "subTitle1": "a√b Şeklinde yazmak çok daha hızlı ve eğlenceli olacak",
+        "title2": "Kolay Seviye",
+        "subTitle2": "Çarpıldığında doğal sayı olan ifadeyi bul",
+        "title3": "Zor Seviye",
+        "subTitle3": "Çarpıldığında doğal sayı olan ifadeleri eşleştir."
     },
     "diolog": {
         "tebrikler": "Tebrikler",
-        "puanAldiniz": "Puan Aldinız",
+        "puanAldiniz": "Puan Aldınız",
         "yeniOyun": "Yeni Oyun"
     }
 }
