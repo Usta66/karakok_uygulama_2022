@@ -32,13 +32,17 @@ class HomeView extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.white),
                 accountName: LocaleText(
                   text: LocaleKeys.home_uygulamaAdi,
-                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.amber),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: Colors.amber),
                 ),
                 accountEmail: LocaleText(
                   text: LocaleKeys.home_ogretmenAdi,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
-                currentAccountPicture: Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
+                currentAccountPicture:
+                    Lottie.asset(LottieConstants.instance!.DRAWER_LOTTIE),
               ),
               Padding(
                 padding: context.paddingLow,
@@ -57,10 +61,14 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LocaleText(text: LocaleKeys.home_dil, style: Theme.of(context).textTheme.bodyText1),
+                    LocaleText(
+                        text: LocaleKeys.home_dil,
+                        style: Theme.of(context).textTheme.bodyText1),
                     Row(
                       children: [
-                        LocaleText(text: LocaleKeys.home_ingilizce, style: Theme.of(context).textTheme.bodyText1),
+                        LocaleText(
+                            text: LocaleKeys.home_ingilizce,
+                            style: Theme.of(context).textTheme.bodyText1),
                         Switch(
                             value: viewModel.isLangEn,
                             onChanged: (select) {
@@ -80,23 +88,15 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           title: LocaleText(text: LocaleKeys.home_uygulamaAdi),
           centerTitle: true,
-          actions: [
-            Padding(
-              padding: context.paddingLow,
-              child: IconButton(
-                icon: const Icon(Icons.power_settings_new),
-                onPressed: () {
-                  exit(0);
-                },
-              ),
-            )
-          ],
         ),
         body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(width: context.width, height: context.height * 0.4, child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
+              SizedBox(
+                  width: context.width,
+                  height: context.height * 0.4,
+                  child: Lottie.asset(LottieConstants.instance!.SEVYESECME2)),
               Padding(
                 padding: context.paddingLow,
                 child: MyButton(
